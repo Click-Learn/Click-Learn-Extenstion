@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Translate Extension Popup</title>
+    <script defer src="popup.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- <script type="text/javascript" src="oauth.js"></script> -->
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 10px;
+        border: 25px;
+      }
+      textarea {
+        width: 100%;
+        height: 100px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      button {
+        display: block;
+        margin: 10px auto;
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Translate Extension</h1>
+    <p>Translate from English to Hebrew:</p>
+    <textarea id="text"></textarea>
+    <div id="error" class="error"></div>
+    <button id="translate">Translate</button>
+    <div id="translation"></div>
+
+
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+
+    <!-- <button id="openAuth" onclick="openAuth()">Google</button> -->
+    <div id="iframeAuth"></div>
+
+
+  </body>
+</html>

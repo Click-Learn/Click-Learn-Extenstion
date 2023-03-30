@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>FriendBlock</title>
+    <style>
+      button {
+        padding: 10px;
+        background-color: #3C79F8;
+        display: inline-block;
+      }
+
+      .loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #0e0e0e;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    display: none;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+    </style>
+        <script type="text/javascript" src="oauth.js"></script>
+  </head>
+  <body>
+    <span class="loader"></span>
+    <button id="loginGoogle">Login Google</button>
+    <button id="logoutGoogle">Logout</button>
+    <div id="friendDiv"></div>
+  </body>
+</html>

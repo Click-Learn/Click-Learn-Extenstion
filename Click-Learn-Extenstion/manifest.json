@@ -15,12 +15,16 @@
       "http://*/*",
       "https://*/*",
       "identity",
-      "activeTab"
+      "activeTab",
+      "storage"
     ]
     , "content_scripts" : [
       {
-      "matches": ["<all_urls>"]
-      , "js": ["./popup.js"]
+      "matches": ["<all_urls>"],
+      "css": ["./style.css"],
+      "js": ["./popup.js"],
+      "run_at": "document_start"
+      
     }
   ],
   "background": {

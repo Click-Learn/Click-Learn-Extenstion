@@ -1,0 +1,54 @@
+
+body {
+    background: none;
+    width: 250px;
+    height: 150px;
+    border-radius: 20px;
+    padding: 30px;
+  }
+
+  #loginGoogle {
+    display: flex;
+    border-radius: 2px;
+    outline: 1px solid rgb(228, 228, 228);
+    width: 80%;
+    padding: 10px;
+    height: 20px;
+    justify-content: space-evenly;
+    font-size: 18px;
+    align-items: center;
+    cursor: pointer;
+  }
+  #loginGoogle:hover {
+    background-color: aliceblue;
+    outline: 1px solid rgb(222, 240, 255);
+  }
+  #login_button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+  #logoutGoogle {
+    display: none;
+  }
+
+  .loader {
+width: 48px;
+height: 48px;
+border: 5px solid #0e0e0e;
+border-bottom-color: transparent;
+border-radius: 50%;
+display: inline-block;
+box-sizing: border-box;
+animation: rotation 1s linear infinite;
+display: none;
+}
+
+@keyframes rotation {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+} 

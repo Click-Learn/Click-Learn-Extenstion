@@ -1,7 +1,12 @@
 let isImageAppended = false;
 let icon;
-
+var token;
 document.addEventListener('selectionchange', () => {
+  chrome.storage.local.get('accessToken', function(result) {
+    token = result.accessToken;
+  });
+
+
   const selectedText = window.getSelection().toString();
   if (selectedText && !isImageAppended) {
     icon = document.createElement("img");

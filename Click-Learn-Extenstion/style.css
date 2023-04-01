@@ -4,9 +4,27 @@ body {
     width: 250px;
     height: 150px;
     border-radius: 20px;
-    padding: 30px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
   }
+  .header img{
+  height: 30px;
+}
 
+#welcome_name{
+  font-size: medium;
+  font-weight: 600;
+}
+
+.header span{
+  font-size:x-large;
+  font-weight: 400;
+  color: #56c961;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
   #loginGoogle {
     display: flex;
     border-radius: 2px;
@@ -20,8 +38,8 @@ body {
     cursor: pointer;
   }
   #loginGoogle:hover {
-    background-color: aliceblue;
-    outline: 1px solid rgb(222, 240, 255);
+    background-color: rgb(240, 255, 242);
+    outline: 1px solid rgba(118, 245, 135, 0.884);
   }
   #login_button {
     cursor: pointer;
@@ -30,12 +48,27 @@ body {
   }
   #logoutGoogle {
     display: none;
+    border-radius: 2px;
+    outline: 1px solid rgb(228, 228, 228);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    width: 80%;
+    padding: 10px;
+    height: 35px;
+    font-size: 18px;
   }
 
+  #logoutGoogle:hover {
+    background-color: rgb(240, 255, 242);
+    outline: 1px solid rgba(118, 245, 135, 0.884);
+  }
+
+
   .loader {
-width: 48px;
-height: 48px;
-border: 5px solid #0e0e0e;
+width: 28px;
+height: 28px;
+border: 5px solid #57d062;
 border-bottom-color: transparent;
 border-radius: 50%;
 display: inline-block;

@@ -5,10 +5,11 @@ With just a few clicks, users can select a word in English and get an instant tr
 <img width="300px" src="https://user-images.githubusercontent.com/112413505/230037732-7743b5a9-8e2e-43f1-a21e-0cebb31da707.png" />
 
 # Features
-Quick Translation: The extension allows users to select any English word on a webpage and get an instant translation to Hebrew.
-Google Account Integration: Users can connect their Google account to the extension and save any words they wish to learn or remember.
-Vocabulary Building: The web repository provided by the extension allows users to access all the words they have saved, where they can play games and read articles with their chosen words and topics.
-How to Install
+• Quick Translation: The extension allows users to select any English word on a webpage and get an instant translation to Hebrew.<br/>
+• Google Account Integration: Users can connect their Google account to the extension and save any words they wish to learn or remember. <br/>
+• Vocabulary Building: The web repository provided by the extension allows users to access all the words they have saved, where they can play games and read articles with their chosen words and topics.
+
+# How to Install
 To install the extension, simply search for it in the Chrome Web Store and click the "Add to Chrome" button. Once installed, users can start using it right away.
 
 # How to Use

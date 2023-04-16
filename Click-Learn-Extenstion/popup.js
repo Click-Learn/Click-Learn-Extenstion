@@ -133,6 +133,35 @@ async function showModal(text) {
   }
   
 
+  const saveWordButton = document.createElement("button");
+  saveWordButton.textContent = "שמור את המילה";
+  saveWordButton.addEventListener('click', () => {
+    chrome.storage.local.get({ 'accessToken': '' }, function(result) {
+      // console.log(result);
+      const token = result.accessToken;
+      // getUserInfo(token);
+      // Make a GET request to the userinfo endpoint with the token as the authorization header
+      fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Extract the email from the response data
+        const email = data.email;
+        console.log(email);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    });
+  })
+  
+  modal.appendChild(saveWordButton)
+  
+
 
 
   const closeButton = document.createElement("button");
@@ -210,4 +239,24 @@ async function translateWord(word) {
   } catch (error) {
     console.error(error);
   }
+}
+
+
+function getUserInfo(token) {
+  let init = {
+    method: 'GET',
+    async: true,
+    headers: {
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    'contentType': 'json'
+  };
+  fetch(
+    'https://people.googleapis.com/v1/people/me?personFields=names&key=AIzaSyAeyJVqlcotDtxTynhsN9p6HO0_V-gzEts',
+    init)
+    .then((response) => response.json())
+    .then(function(data) {
+      console.log(data);
+    });
 }

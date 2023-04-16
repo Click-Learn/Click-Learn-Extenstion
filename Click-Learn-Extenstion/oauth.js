@@ -42,7 +42,7 @@ window.onload = function() {
 
 };
 
-function getUserInfo(token) {
+ function getUserInfo(token) {
   let init = {
     method: 'GET',
     async: true,
@@ -57,6 +57,7 @@ function getUserInfo(token) {
     init)
     .then((response) => response.json())
     .then(function(data) {
+      console.log(data);
       document.getElementsByClassName("loader")[0].style.display = "none";
       document.getElementById("welcome_name").innerHTML = "Hello" + " " + data.names[0].givenName + " " + data.names[0].familyName;
       document.getElementById("loginGoogle").style.display = "none";

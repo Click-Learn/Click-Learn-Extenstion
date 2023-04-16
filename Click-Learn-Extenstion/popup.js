@@ -42,8 +42,9 @@ document.addEventListener('mousedown', (e) => {
     isImageAppended = false;
   } 
 });
-function showModal(text) {
+async function showModal(text) {
   const modal = document.createElement("div");
+  // modal.style.zIndex = "9999";
   modal.style.position = "fixed";
   modal.style.width = "300px";
   modal.style.MaxWidth = "400px";
@@ -66,8 +67,17 @@ function showModal(text) {
   modalHeader.style.width = "100%";
   modalHeader.style.height = "70px";
   modalHeader.style.borderRadius = "20px 20px 20px 20px";
-  modalHeader.style.backgroundColor = "#55B85E";
-  
+  modalHeader.style.backgroundColor = "#2CCD85";
+
+  const logo = document.createElement("img");
+  // logo.height = "50px";
+  logo.style.width = "50%";
+  logo.style.margin = "6px 10px";
+  logo.src = "https://i.ibb.co/C09NZwD/CLICK-LEARN-4.png";
+
+  modalHeader.appendChild(logo);
+
+
   modal.appendChild(modalHeader);
   
   
@@ -105,22 +115,28 @@ function showModal(text) {
     
     const EnglishSelectedText = document.createElement("p");
     EnglishSelectedText.textContent = text;
+    EnglishSelectedText.style.color = "#252525"
     ModalENContainer.appendChild(EnglishSelectedText);
+    
+    translateWord(text).then((hebrewWord) => {
+      const HebrewTransltedText = document.createElement("p");
+      HebrewTransltedText.textContent = hebrewWord;
+      HebrewTransltedText.style.color = "#252525"
+      ModalHEContainer.appendChild(HebrewTransltedText);
+    });
   } else {
     const EnglishSelectedText = document.createElement("p");
     EnglishSelectedText.textContent = "נא לסמן מילה אחת";
+    EnglishSelectedText.style.color = "#252525"
     ModalENContainer.appendChild(EnglishSelectedText);
 
   }
-
-  const HebrewTransltedText = document.createElement("p");
-  HebrewTransltedText.textContent = text;
-  ModalHEContainer.appendChild(HebrewTransltedText);
+  
 
 
 
   const closeButton = document.createElement("button");
-  closeButton.textContent = "Close";
+  closeButton.textContent = "סגור";
   closeButton.style.position = "absolute";
   closeButton.style.top = "10px";
   closeButton.style.right = "10px";
@@ -128,7 +144,7 @@ function showModal(text) {
   closeButton.style.border = "none";
   closeButton.style.cursor = "pointer";
   closeButton.style.fontSize = "16px";
-  closeButton.style.color = "gray";
+  closeButton.style.color = "white";
   closeButton.addEventListener("click", () => {
     console.log(modal);
     document.body.removeChild(modal);
@@ -169,4 +185,29 @@ function isSingleWord(str) {
   str = str.trim();
   // Check if there are any spaces left in the string
   return !/\s/.test(str);
+}
+
+
+
+async function translateWord(word) {
+  const url = "http://localhost:4000/translateTheWord";
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ word })
+    });
+
+    if (!response.ok) {
+      throw new Error("Translation request failed");
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }

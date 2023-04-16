@@ -21,7 +21,6 @@
     , "content_scripts" : [
       {
       "matches": ["<all_urls>"],
-      "css": ["./style.css"],
       "js": ["./popup.js"],
       "run_at": "document_start"
       
@@ -32,7 +31,7 @@
   },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvHvkM6GZ+QhUsaWWYL0B/LoIQ1lfeu+TVpM+XouoDP6tdSF7tAY8bTNkG8AWEwAKLNo2r/tkOkH+hLDB7ArdTqUYF8AcPNWrOYkb6xxa9nq7hlF8ybwE7KW4LYGBQyt0h8LK+iF2LqjYr06tXNFMYz1o5F3i0okObNhV3QEKoVREwqJEptFRd4EIaEqPViQ3YPdevFihasATvVeLbrro55Rt0J0rZn7ZzXZ1/EJdlT2/mOmeuubFIa6W+Fd40GtxnUM4a/Ks12E//eqjXVOFwCRfnIxHe+FQFyLW48zBvMGiQVIs+EIvYZnEsCWjl8vVa8OTV9Gm1nOI/f26cLdpLQIDAQAB"
   , "oauth2": {
-    "client_id": "5407130036-q1uvv2qh5tge14jpqsltaek2nu4808i7.apps.googleusercontent.com",
+    "client_id": "5407130036-4a2bpl10o58hhn0s5skpd31s1n987khl.apps.googleusercontent.com",
     "scopes":["https://www.googleapis.com/auth/contacts.readonly"]
   }
   }

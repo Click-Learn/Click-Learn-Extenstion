@@ -137,23 +137,37 @@ async function showModal(text) {
 
   const saveWordButton = document.createElement("button");
   saveWordButton.textContent = "שמור את המילה";
-  saveWordButton.addEventListener('click', () => {
+  saveWordButton.addEventListener('click', async () => {
     const englishWord = document.getElementById("EnglishWordTag").textContent;
     console.log(englishWord);
     const hebrewWord = document.getElementById("HebrewWordTag").textContent;
     console.log(hebrewWord);
-    getEmailFromUser().then(function(email) {
+    try {
+      const email = await getEmailFromUser();
       console.log(email);
-
-
-      
-    }).catch(function(error) {
+  
+      const url = "http://localhost:4000/saveWordromExtenstion";
+  
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ hebrewWord, englishWord, email })
+      });
+  
+      if (!response.ok) {
+        throw new Error("Translation request failed");
+      }
+  
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
       console.error(error);
-    });
-    
-
-
-  })
+    }
+  });
+  
   
   modal.appendChild(saveWordButton)
   

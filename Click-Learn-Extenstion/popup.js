@@ -2,7 +2,7 @@ let isImageAppended = false;
 let icon;
 var token;
 document.addEventListener('selectionchange', () => {
-  chrome.storage.local.get('accessToken', function(result) {
+  chrome.storage.local.get('accessToken', function (result) {
     token = result.accessToken;
   });
 
@@ -23,7 +23,7 @@ document.addEventListener('selectionchange', () => {
     document.documentElement.appendChild(icon);
     chrome.runtime.sendMessage({ text: selectedText });
     isImageAppended = true;
-  
+
     setTimeout(() => {
       icon.remove();
       isImageAppended = false;
@@ -40,7 +40,7 @@ document.addEventListener('mousedown', (e) => {
   if (icon && !icon.contains(e.target) && e.target !== icon) {
     icon.remove();
     isImageAppended = false;
-  } 
+  }
 });
 async function showModal(text) {
   const modal = document.createElement("div");
@@ -58,10 +58,13 @@ async function showModal(text) {
   modal.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
   modal.style.zIndex = "999999";
   modal.style.borderRadius = "20px";
-  modal.style.overflow = "auto";
+  // modal.style.overflow = "auto";
   modal.style.margin = "0";
   modal.style.padding = "0";
-  
+  modal.style.display = "flex";
+  modal.style.flexDirection = "column";
+
+
   const modalHeader = document.createElement("div");
   modalHeader.style.marginTop = "0"
   modalHeader.style.width = "100%";
@@ -79,8 +82,8 @@ async function showModal(text) {
 
 
   modal.appendChild(modalHeader);
-  
-  
+
+
   const ModalENContainer = document.createElement("div");
   ModalENContainer.style.margin = "15px auto 0 auto";
   ModalENContainer.style.width = "85%";
@@ -88,13 +91,13 @@ async function showModal(text) {
   ModalENContainer.style.backgroundColor = "white";
   ModalENContainer.style.boxShadow = "rgba(0, 0, 0, 0.15) 0px 0px 7px 0px";
   ModalENContainer.style.borderRadius = "10px";
-  ModalENContainer.style.overflow = "auto";
+  // ModalENContainer.style.overflow = "auto";
   ModalENContainer.style.padding = "5px";
-  ModalENContainer.style.textAlign = "right";
-  
+  ModalENContainer.style.textAlign = "center";
+
   modal.appendChild(ModalENContainer);
-  
-  
+
+
   const ModalHEContainer = document.createElement("div");
   ModalHEContainer.style.margin = "10px auto 0 auto";
   ModalHEContainer.style.width = "85%";
@@ -110,15 +113,15 @@ async function showModal(text) {
 
 
 
-  if(isSingleWord(text)){
+  if (isSingleWord(text)) {
 
-    
+
     const EnglishSelectedText = document.createElement("p");
     EnglishSelectedText.textContent = text;
     EnglishSelectedText.id = "EnglishWordTag";
     EnglishSelectedText.style.color = "#252525"
     ModalENContainer.appendChild(EnglishSelectedText);
-    
+
     translateWord(text).then((hebrewWord) => {
       const HebrewTransltedText = document.createElement("p");
       HebrewTransltedText.textContent = hebrewWord;
@@ -133,10 +136,27 @@ async function showModal(text) {
     ModalENContainer.appendChild(EnglishSelectedText);
 
   }
-  
+
 
   const saveWordButton = document.createElement("button");
   saveWordButton.textContent = "שמור את המילה";
+  saveWordButton.style.backgroundColor = "#2CCD85";
+  saveWordButton.style.color = "white";
+  saveWordButton.style.margin = "30px auto 0 auto";
+  saveWordButton.style.border = "none";
+  saveWordButton.style.borderRadius = "6px";
+  saveWordButton.style.height = "34px";
+  saveWordButton.style.width = "156px";
+
+  saveWordButton.addEventListener("mouseover", function () {
+    saveWordButton.style.backgroundColor = "#3FD1A2";
+    saveWordButton.style.cursor = "pointer";
+  });
+
+  saveWordButton.addEventListener("mouseout", function () {
+    saveWordButton.style.backgroundColor = "#2CCD85";
+  });
+
   saveWordButton.addEventListener('click', async () => {
     const englishWord = document.getElementById("EnglishWordTag").textContent;
     console.log(englishWord);
@@ -145,9 +165,9 @@ async function showModal(text) {
     try {
       const email = await getEmailFromUser();
       console.log(email);
-  
+
       const url = "http://localhost:4000/saveWordromExtenstion";
-  
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -155,22 +175,58 @@ async function showModal(text) {
         },
         body: JSON.stringify({ hebrewWord, englishWord, email })
       });
-  
+
       if (!response.ok) {
         throw new Error("Translation request failed");
       }
-  
+
       const data = await response.json();
       console.log(data);
-      return data;
+
+      // Create a new element to hold the response
+      const responseElement = document.createElement("div");
+      responseElement.textContent = data.message;
+      responseElement.style.margin = "30px auto";
+      responseElement.style.textAlign = "center";
+      responseElement.style.fontSize = "20px";
+
+
+      // Replace the button with the response element
+      saveWordButton.replaceWith(responseElement);
+      // return data;
     } catch (error) {
       console.error(error);
     }
   });
+
+
+  let loggedIn = false;
+  try {
+    const userEmail = await getEmailFromUser();
+    if (userEmail) {
+      loggedIn = true;
+    }
+  } catch (error) {
+    loggedIn = false;
+  }
+
+  if (loggedIn) {
+   
+    modal.appendChild(saveWordButton);
+  } else {
+   
+    const loginText = document.createElement("p");
+    loginText.textContent = "התחבר בשביל לשמור את המילה";
+    loginText.style.margin = "30px auto";
+    loginText.style.textAlign = "center";
+    loginText.style.fontSize = "16px";
+    modal.appendChild(loginText);
+
   
-  
-  modal.appendChild(saveWordButton)
-  
+  }
+
+  // modal.appendChild(saveWordButton)
+
 
 
 
@@ -206,14 +262,14 @@ async function showModal(text) {
 document.addEventListener("DOMContentLoaded", function () {
   console.log(document.domain);//It outputs id of extension to console
   chrome.tabs.query({ //This method output active URL 
-      "active": true,
-      "currentWindow": true,
-      "status": "complete",
-      "windowType": "normal"
+    "active": true,
+    "currentWindow": true,
+    "status": "complete",
+    "windowType": "normal"
   }, function (tabs) {
-      for (tab in tabs) {
-          console.log(tabs[tab].url);
-      }
+    for (tab in tabs) {
+      console.log(tabs[tab].url);
+    }
   });
 });
 
@@ -266,15 +322,15 @@ function getUserInfo(token) {
     'https://people.googleapis.com/v1/people/me?personFields=names&key=AIzaSyAeyJVqlcotDtxTynhsN9p6HO0_V-gzEts',
     init)
     .then((response) => response.json())
-    .then(function(data) {
+    .then(function (data) {
       console.log(data);
     });
 }
 
 
 function getEmailFromUser() {
-  return new Promise(function(resolve, reject) {
-    chrome.storage.local.get('accessToken', function(result) {
+  return new Promise(function (resolve, reject) {
+    chrome.storage.local.get('accessToken', function (result) {
       const token = result.accessToken;
 
       if (result.accessToken) {
@@ -291,11 +347,11 @@ function getEmailFromUser() {
           'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses&key=AIzaSyAeyJVqlcotDtxTynhsN9p6HO0_V-gzEts',
           init)
           .then((response) => response.json())
-          .then(function(data) {
+          .then(function (data) {
             const email = data.emailAddresses[0].value;
             resolve(email);
           })
-          .catch(function(error) {
+          .catch(function (error) {
             reject(error);
           });
       } else {

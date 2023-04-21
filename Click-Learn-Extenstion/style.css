@@ -1,11 +1,13 @@
 
 body {
-    width: 250px;
-    height: 190px;
-    background-color: #57d061a8;
+  height: 200px;
+
+  width: 200px;
+    background-color: #2CCD85;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -14,14 +16,15 @@ body {
 .container {
     width: 95%;
     box-sizing: border-box;
-    height: 95%;
-    padding: 10px;
+    height:125px;
+    /* padding: 10px; */
+    /* padding: 0; */
     border-radius: 5px;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
     justify-content: center;
   }
 .header {
@@ -29,6 +32,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 15px;
+    background-color: #2CCD85;
 }
 #welcome_name{
   font-size: medium;
@@ -49,7 +53,7 @@ body {
   }
   #loginGoogle:hover {
     background-color: rgb(240, 255, 242);
-    outline: 1px solid rgba(118, 245, 135, 0.884);
+    outline: 1px solid #2CCD85;
   }
   #login_button {
     cursor: pointer;
@@ -71,14 +75,14 @@ body {
 
   #logoutGoogle:hover {
     background-color: rgb(240, 255, 242);
-    outline: 1px solid rgba(118, 245, 135, 0.884);
+    outline: 1px solid #2CCD85;
   }
 
 
   .loader {
 width: 28px;
 height: 28px;
-border: 5px solid #57d062;
+border: 5px solid #2CCD85;
 border-bottom-color: transparent;
 border-radius: 50%;
 display: inline-block;

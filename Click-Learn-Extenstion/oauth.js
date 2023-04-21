@@ -41,6 +41,10 @@ window.onload = function() {
 
 };
 
+
+
+
+
 //  function getUserInfo(token) {
 //   let init = {
 //     method: 'GET',

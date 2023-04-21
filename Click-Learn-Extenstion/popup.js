@@ -105,9 +105,9 @@ async function showModal(text) {
   ModalHEContainer.style.backgroundColor = "white";
   ModalHEContainer.style.boxShadow = "rgba(0, 0, 0, 0.15) 0px 0px 7px 0px";
   ModalHEContainer.style.borderRadius = "10px";
-  ModalHEContainer.style.overflow = "auto";
+  // ModalHEContainer.style.overflow = "auto";
   ModalHEContainer.style.padding = "5px";
-  ModalHEContainer.style.textAlign = "right";
+  ModalHEContainer.style.textAlign = "center";
 
   modal.appendChild(ModalHEContainer);
 
@@ -132,9 +132,12 @@ async function showModal(text) {
   } else {
     const EnglishSelectedText = document.createElement("p");
     EnglishSelectedText.textContent = "נא לסמן מילה אחת";
+    EnglishSelectedText.id = "moreThanOneWord";
     EnglishSelectedText.style.color = "#252525"
     ModalENContainer.appendChild(EnglishSelectedText);
 
+    ModalHEContainer.style.display = "none";
+    
   }
 
 
@@ -147,6 +150,10 @@ async function showModal(text) {
   saveWordButton.style.borderRadius = "6px";
   saveWordButton.style.height = "34px";
   saveWordButton.style.width = "156px";
+
+  if (ModalHEContainer.style.display === "none") {
+    saveWordButton.style.display = "none";
+  }
 
   saveWordButton.addEventListener("mouseover", function () {
     saveWordButton.style.backgroundColor = "#3FD1A2";
@@ -216,7 +223,10 @@ async function showModal(text) {
   } else {
    
     const loginText = document.createElement("p");
+    // const test = document.getElementById("moreThanOneWord").value;
+    // console.log("here will se the value",test);
     loginText.textContent = "התחבר בשביל לשמור את המילה";
+    loginText.id = "try";
     loginText.style.margin = "30px auto";
     loginText.style.textAlign = "center";
     loginText.style.fontSize = "16px";

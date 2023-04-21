@@ -84,7 +84,7 @@ async function showModal(text) {
   const ModalENContainer = document.createElement("div");
   ModalENContainer.style.margin = "15px auto 0 auto";
   ModalENContainer.style.width = "85%";
-  ModalENContainer.style.height = "70px";
+  ModalENContainer.style.height = "40px";
   ModalENContainer.style.backgroundColor = "white";
   ModalENContainer.style.boxShadow = "rgba(0, 0, 0, 0.15) 0px 0px 7px 0px";
   ModalENContainer.style.borderRadius = "10px";
@@ -96,9 +96,9 @@ async function showModal(text) {
   
   
   const ModalHEContainer = document.createElement("div");
-  ModalHEContainer.style.margin = "15px auto 0 auto";
+  ModalHEContainer.style.margin = "10px auto 0 auto";
   ModalHEContainer.style.width = "85%";
-  ModalHEContainer.style.height = "60px";
+  ModalHEContainer.style.height = "40px";
   ModalHEContainer.style.backgroundColor = "white";
   ModalHEContainer.style.boxShadow = "rgba(0, 0, 0, 0.15) 0px 0px 7px 0px";
   ModalHEContainer.style.borderRadius = "10px";
@@ -115,12 +115,14 @@ async function showModal(text) {
     
     const EnglishSelectedText = document.createElement("p");
     EnglishSelectedText.textContent = text;
+    EnglishSelectedText.id = "EnglishWordTag";
     EnglishSelectedText.style.color = "#252525"
     ModalENContainer.appendChild(EnglishSelectedText);
     
     translateWord(text).then((hebrewWord) => {
       const HebrewTransltedText = document.createElement("p");
       HebrewTransltedText.textContent = hebrewWord;
+      HebrewTransltedText.id = "HebrewWordTag";
       HebrewTransltedText.style.color = "#252525"
       ModalHEContainer.appendChild(HebrewTransltedText);
     });
@@ -136,27 +138,21 @@ async function showModal(text) {
   const saveWordButton = document.createElement("button");
   saveWordButton.textContent = "שמור את המילה";
   saveWordButton.addEventListener('click', () => {
-    chrome.storage.local.get({ 'accessToken': '' }, function(result) {
-      // console.log(result);
-      const token = result.accessToken;
-      // getUserInfo(token);
-      // Make a GET request to the userinfo endpoint with the token as the authorization header
-      fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // Extract the email from the response data
-        const email = data.email;
-        console.log(email);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    const englishWord = document.getElementById("EnglishWordTag").textContent;
+    console.log(englishWord);
+    const hebrewWord = document.getElementById("HebrewWordTag").textContent;
+    console.log(hebrewWord);
+    getEmailFromUser().then(function(email) {
+      console.log(email);
+
+
+      
+    }).catch(function(error) {
+      console.error(error);
     });
+    
+
+
   })
   
   modal.appendChild(saveWordButton)
@@ -260,3 +256,43 @@ function getUserInfo(token) {
       console.log(data);
     });
 }
+
+
+function getEmailFromUser() {
+  return new Promise(function(resolve, reject) {
+    chrome.storage.local.get('accessToken', function(result) {
+      const token = result.accessToken;
+
+      if (result.accessToken) {
+        let init = {
+          method: 'GET',
+          async: true,
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          },
+          'contentType': 'json'
+        };
+        fetch(
+          'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses&key=AIzaSyAeyJVqlcotDtxTynhsN9p6HO0_V-gzEts',
+          init)
+          .then((response) => response.json())
+          .then(function(data) {
+            const email = data.emailAddresses[0].value;
+            resolve(email);
+          })
+          .catch(function(error) {
+            reject(error);
+          });
+      } else {
+        reject(new Error('Access token not found.'));
+      }
+    });
+  });
+}
+
+// async function saveWordToServer(){
+//   const email = await getEmailFromUser();
+
+//   // send to the backend with the email in body
+// }

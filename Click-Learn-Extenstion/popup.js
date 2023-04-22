@@ -73,12 +73,19 @@ async function showModal(text) {
   modalHeader.style.backgroundColor = "#2CCD85";
 
   const logo = document.createElement("img");
-  // logo.height = "50px";
   logo.style.width = "50%";
   logo.style.margin = "6px 10px";
   logo.src = "https://i.ibb.co/C09NZwD/CLICK-LEARN-4.png";
 
-  modalHeader.appendChild(logo);
+
+  // Create an anchor element
+  const logoLink = document.createElement("a");
+  logoLink.href = "http://localhost:3000/";
+  logoLink.style.display = "inline-block";
+
+  logoLink.appendChild(logo);
+
+  modalHeader.appendChild(logoLink);
 
 
   modal.appendChild(modalHeader);
@@ -137,7 +144,7 @@ async function showModal(text) {
     ModalENContainer.appendChild(EnglishSelectedText);
 
     ModalHEContainer.style.display = "none";
-    
+
   }
 
 
@@ -145,11 +152,27 @@ async function showModal(text) {
   saveWordButton.textContent = "שמור את המילה";
   saveWordButton.style.backgroundColor = "#2CCD85";
   saveWordButton.style.color = "white";
-  saveWordButton.style.margin = "30px auto 0 auto";
+  saveWordButton.style.margin = "10px auto 0 auto";
   saveWordButton.style.border = "none";
   saveWordButton.style.borderRadius = "6px";
   saveWordButton.style.height = "34px";
   saveWordButton.style.width = "156px";
+
+  // Create a div element
+  const divElement = document.createElement("div");
+  divElement.style.textAlign = "center"; // Optional: Align the link to the center
+
+  // Create an anchor element
+  const anchorElement = document.createElement("a");
+  anchorElement.textContent = "מעבר לאתר";
+  anchorElement.href = "http://localhost:3000/";
+  anchorElement.style.display = "inline-block"; // Optional: Align the link to the center
+  anchorElement.style.marginTop = "5px"; // Optional: Add some margin to the top
+
+  // Append the anchor element to the div element
+  divElement.appendChild(anchorElement);
+  modal.appendChild(divElement);
+
 
   if (ModalHEContainer.style.display === "none") {
     saveWordButton.style.display = "none";
@@ -218,21 +241,21 @@ async function showModal(text) {
   }
 
   if (loggedIn) {
-   
+
     modal.appendChild(saveWordButton);
   } else {
-   
+
     const loginText = document.createElement("p");
     // const test = document.getElementById("moreThanOneWord").value;
     // console.log("here will se the value",test);
     loginText.textContent = "התחבר בשביל לשמור את המילה";
     loginText.id = "try";
-    loginText.style.margin = "30px auto";
+    loginText.style.margin = "10px auto";
     loginText.style.textAlign = "center";
     loginText.style.fontSize = "16px";
     modal.appendChild(loginText);
 
-  
+
   }
 
   // modal.appendChild(saveWordButton)

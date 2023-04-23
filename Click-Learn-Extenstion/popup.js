@@ -192,6 +192,9 @@ async function showModal(text) {
     console.log(englishWord);
     const hebrewWord = document.getElementById("HebrewWordTag").textContent;
     console.log(hebrewWord);
+    englishWord = cutWord(englishWord)
+    hebrewWord = cutWord(hebrewWord)
+    
     try {
       const email = await getEmailFromUser();
       console.log(email);
@@ -399,3 +402,7 @@ function getEmailFromUser() {
 
 //   // send to the backend with the email in body
 // }
+
+function cutWord(word) {
+  return word.trim();
+}

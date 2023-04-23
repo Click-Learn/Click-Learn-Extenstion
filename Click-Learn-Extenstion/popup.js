@@ -188,13 +188,15 @@ async function showModal(text) {
   });
 
   saveWordButton.addEventListener('click', async () => {
-    const englishWord = document.getElementById("EnglishWordTag").textContent;
+    var englishWord = document.getElementById("EnglishWordTag").textContent;
     console.log(englishWord);
-    const hebrewWord = document.getElementById("HebrewWordTag").textContent;
+    var hebrewWord = document.getElementById("HebrewWordTag").textContent;
     console.log(hebrewWord);
     englishWord = cutWord(englishWord)
     hebrewWord = cutWord(hebrewWord)
-    
+    console.log(englishWord);
+    console.log(hebrewWord);
+
     try {
       const email = await getEmailFromUser();
       console.log(email);

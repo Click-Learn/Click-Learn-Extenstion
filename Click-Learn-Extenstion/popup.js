@@ -221,7 +221,7 @@ async function showModal(text) {
       // Create a new element to hold the response
       const responseElement = document.createElement("div");
       responseElement.textContent = data.message;
-      responseElement.style.margin = "30px auto";
+      responseElement.style.margin = "15px auto";
       responseElement.style.textAlign = "center";
       responseElement.style.fontSize = "20px";
 

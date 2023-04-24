@@ -1,13 +1,23 @@
 let isImageAppended = false;
 let icon;
 var token;
+
+
+
+//functions to create:
+// CreateModal / GetModalElement - should be for each complex element
+// onTextSelection
+// saveToFavorite
+// 
+
+
 document.addEventListener('selectionchange', () => {
   chrome.storage.local.get('accessToken', function (result) {
     token = result.accessToken;
   });
 
 
-  const selectedText = window.getSelection().toString();
+  const selectedText = window.getSelection().toString().trim();
   if (selectedText && !isImageAppended) {
     icon = document.createElement("img");
     icon.id = "icon";
@@ -17,6 +27,7 @@ document.addEventListener('selectionchange', () => {
     const range = window.getSelection().getRangeAt(0);
     const rect = range.getBoundingClientRect();
     icon.style.position = "absolute";
+    //icon.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
     icon.style.zIndex = "999999";
     icon.style.top = `${rect.top + 20 + window.pageYOffset}px`;
     icon.style.left = `${rect.left + 45 + window.pageXOffset}px`;
@@ -28,12 +39,13 @@ document.addEventListener('selectionchange', () => {
       icon.remove();
       isImageAppended = false;
     }, 10000);
+    
+    icon.addEventListener("click", () => {
+      icon.remove();
+      const selectedText = window.getSelection().toString();
+      showModal(selectedText);
+    });
   }
-
-  icon.addEventListener("click", () => {
-    const selectedText = window.getSelection().toString();
-    showModal(selectedText);
-  });
 });
 
 document.addEventListener('mousedown', (e) => {
@@ -55,7 +67,8 @@ async function showModal(text) {
   modal.style.transform = "translate(-50%, -50%)";
   modal.style.backgroundColor = "white";
   modal.style.padding = "20px";
-  modal.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+  // modal.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+  modal.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
   modal.style.zIndex = "999999";
   modal.style.borderRadius = "20px";
   // modal.style.overflow = "auto";
@@ -69,7 +82,7 @@ async function showModal(text) {
   modalHeader.style.marginTop = "0"
   modalHeader.style.width = "100%";
   modalHeader.style.height = "70px";
-  modalHeader.style.borderRadius = "20px 20px 20px 20px";
+  modalHeader.style.borderRadius = "20px 20px 0 0";
   modalHeader.style.backgroundColor = "#2CCD85";
 
   const logo = document.createElement("img");
@@ -152,7 +165,7 @@ async function showModal(text) {
   saveWordButton.textContent = "שמור את המילה";
   saveWordButton.style.backgroundColor = "#2CCD85";
   saveWordButton.style.color = "white";
-  saveWordButton.style.margin = "10px auto 0 auto";
+  saveWordButton.style.margin = "0 auto";
   saveWordButton.style.border = "none";
   saveWordButton.style.borderRadius = "6px";
   saveWordButton.style.height = "34px";
@@ -168,6 +181,7 @@ async function showModal(text) {
   anchorElement.href = "http://localhost:3000/";
   anchorElement.style.display = "inline-block"; // Optional: Align the link to the center
   anchorElement.style.marginTop = "5px"; // Optional: Add some margin to the top
+  anchorElement.style.marginBottom = "9px"; // Optional: Add some margin to the top
 
   // Append the anchor element to the div element
   divElement.appendChild(anchorElement);
@@ -221,7 +235,7 @@ async function showModal(text) {
       // Create a new element to hold the response
       const responseElement = document.createElement("div");
       responseElement.textContent = data.message;
-      responseElement.style.margin = "15px auto";
+      responseElement.style.margin = "10px auto !important";
       responseElement.style.textAlign = "center";
       responseElement.style.fontSize = "20px";
 
@@ -318,6 +332,7 @@ function isSingleWord(str) {
   str = str.trim();
   // Check if there are any spaces left in the string
   return !/\s/.test(str);
+  
 }
 
 

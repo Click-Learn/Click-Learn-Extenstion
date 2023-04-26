@@ -93,7 +93,7 @@ async function showModal(text) {
 
   // Create an anchor element
   const logoLink = document.createElement("a");
-  logoLink.href = "http://localhost:3000/";
+  logoLink.href = "https://www.clicklearn-app.com";
   logoLink.style.display = "inline-block";
 
   logoLink.appendChild(logo);
@@ -178,7 +178,7 @@ async function showModal(text) {
   // Create an anchor element
   const anchorElement = document.createElement("a");
   anchorElement.textContent = "מעבר לאתר";
-  anchorElement.href = "http://localhost:3000/";
+  anchorElement.href = "https://www.clicklearn-app.com";
   anchorElement.style.display = "inline-block"; // Optional: Align the link to the center
   anchorElement.style.marginTop = "5px"; // Optional: Add some margin to the top
   anchorElement.style.marginBottom = "9px"; // Optional: Add some margin to the top
@@ -215,7 +215,7 @@ async function showModal(text) {
       const email = await getEmailFromUser();
       console.log(email);
 
-      const url = "http://localhost:4000/saveWordromExtenstion";
+      const url = "https://click-learn.herokuapp.com/saveWordromExtenstion";
 
       const response = await fetch(url, {
         method: "POST",
@@ -338,7 +338,7 @@ function isSingleWord(str) {
 
 
 async function translateWord(word) {
-  const url = "http://localhost:4000/translateTheWord";
+  const url = "https://click-learn.herokuapp.com/translateTheWord";
 
   try {
     const response = await fetch(url, {

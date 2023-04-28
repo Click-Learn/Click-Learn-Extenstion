@@ -1,6 +1,6 @@
 {
     "name": "English to Hebrew Translator",
-    "version": "1.1",
+    "version": "1.2",
     "manifest_version": 3,
     "description": "A Chrome extension that translates selected text from English to Hebrew and saves it to your email account.",
     "icons": {

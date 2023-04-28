@@ -44,31 +44,6 @@ window.onload = function() {
 
 
 
-
-//  function getUserInfo(token) {
-//   let init = {
-//     method: 'GET',
-//     async: true,
-//     headers: {
-//       Authorization: 'Bearer ' + token,
-//       'Content-Type': 'application/json'
-//     },
-//     'contentType': 'json'
-//   };
-//   fetch(
-//     'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses&key=AIzaSyAeyJVqlcotDtxTynhsN9p6HO0_V-gzEts',
-//     init)
-//     .then((response) => response.json())
-//     .then(function(data) {
-//       console.log(data);
-//       console.log(data.emailAddresses[0].value);
-//       document.getElementsByClassName("loader")[0].style.display = "none";
-//       document.getElementById("welcome_name").innerHTML = "Hello" + " " + data.names[0].givenName + " " + data.names[0].familyName;
-//       document.getElementById("loginGoogle").style.display = "none";
-//       document.getElementById("logoutGoogle").style.display = "block";
-//     });
-// }
-
 function getUserInfo(token) {
   let init = {
     method: 'GET',

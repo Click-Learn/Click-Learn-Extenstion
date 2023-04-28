@@ -4,13 +4,6 @@ var token;
 
 
 
-//functions to create:
-// CreateModal / GetModalElement - should be for each complex element
-// onTextSelection
-// saveToFavorite
-// 
-
-
 document.addEventListener('selectionchange', () => {
   chrome.storage.local.get('accessToken', function (result) {
     token = result.accessToken;
@@ -21,13 +14,12 @@ document.addEventListener('selectionchange', () => {
   if (selectedText && !isImageAppended) {
     icon = document.createElement("img");
     icon.id = "icon";
-    icon.src = "https://i.ibb.co/9t8DNZX/image-2.png";
+    icon.src = "https://master-cut.s3.amazonaws.com/ClickLearnIconExtension.png";
     icon.width = 30;
     icon.style.cursor = "pointer";
     const range = window.getSelection().getRangeAt(0);
     const rect = range.getBoundingClientRect();
     icon.style.position = "absolute";
-    //icon.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
     icon.style.zIndex = "999999";
     icon.style.top = `${rect.top + 20 + window.pageYOffset}px`;
     icon.style.left = `${rect.left + 45 + window.pageXOffset}px`;
@@ -56,7 +48,6 @@ document.addEventListener('mousedown', (e) => {
 });
 async function showModal(text) {
   const modal = document.createElement("div");
-  // modal.style.zIndex = "9999";
   modal.style.position = "fixed";
   modal.style.width = "300px";
   modal.style.MaxWidth = "400px";
@@ -67,11 +58,9 @@ async function showModal(text) {
   modal.style.transform = "translate(-50%, -50%)";
   modal.style.backgroundColor = "white";
   modal.style.padding = "20px";
-  // modal.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
   modal.style.boxShadow = "rgba(0, 0, 0, 0.35) 0px 5px 15px";
   modal.style.zIndex = "999999";
   modal.style.borderRadius = "20px";
-  // modal.style.overflow = "auto";
   modal.style.margin = "0";
   modal.style.padding = "0";
   modal.style.display = "flex";
@@ -88,7 +77,7 @@ async function showModal(text) {
   const logo = document.createElement("img");
   logo.style.width = "50%";
   logo.style.margin = "6px 10px";
-  logo.src = "https://i.ibb.co/C09NZwD/CLICK-LEARN-4.png";
+  logo.src = "https://master-cut.s3.amazonaws.com/ClickLearnLogoExtenstion.png";
 
 
   // Create an anchor element
@@ -413,12 +402,6 @@ function getEmailFromUser() {
     });
   });
 }
-
-// async function saveWordToServer(){
-//   const email = await getEmailFromUser();
-
-//   // send to the backend with the email in body
-// }
 
 function cutWord(word) {
   return word.trim();
